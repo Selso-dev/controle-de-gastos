@@ -24,20 +24,30 @@ document.getElementById("form-gastos").addEventListener("submit", function(event
 
     let data = document.getElementById("data").value;
     let descricao = document.getElementById("descricao").value;
-    let valor = parseFloat(document.getElementById("valor").value);
+    let valor = document.getElementById("valor").value.replace(",", "."); // Substitui vírgula por ponto
 
-    gastos.push({ data, descricao, valor });
+    if (!isNaN(parseFloat(valor))) {
+        valor = parseFloat(valor);
+        gastos.push({ data, descricao, valor });
 
-    atualizarTabela();
-    atualizarSaldo();
-    salvarDados();
+        atualizarTabela();
+        atualizarSaldo();
+        salvarDados();
+    } else {
+        alert("Por favor, insira um valor numérico válido.");
+    }
 });
 
 document.getElementById("definir-saldo").addEventListener("click", function() {
-    saldoInicial = parseFloat(document.getElementById("saldo-inicial").value);
-    totalGastos = 0;
-    atualizarSaldo();
-    salvarDados();
+    let saldoInput = document.getElementById("saldo-inicial").value.replace(",", "."); // Substitui vírgula por ponto
+    if (!isNaN(parseFloat(saldoInput))) {
+        saldoInicial = parseFloat(saldoInput);
+        totalGastos = 0;
+        atualizarSaldo();
+        salvarDados();
+    } else {
+        alert("Por favor, insira um saldo inicial válido.");
+    }
 });
 
 function atualizarTabela() {
@@ -49,7 +59,7 @@ function atualizarTabela() {
         linha.innerHTML = `
             <td>${gasto.data}</td>
             <td>${gasto.descricao}</td>
-            <td>R$ ${gasto.valor.toFixed(2)}</td>
+            <td>R$ ${gasto.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
             <td><button class="apagar-gasto" data-indice="${indice}">Apagar</button></td>
         `;
         corpoTabela.appendChild(linha);
@@ -73,10 +83,10 @@ function atualizarSaldo() {
         return soma + gasto.valor;
     }, 0);
 
-    saldoDisponivel = saldoInicial - totalGastos;
+    saldoDisponivel = parseFloat((saldoInicial - totalGastos).toFixed(2));
 
-    document.getElementById("total-gastos").innerText = `Total de Gastos: R$ ${totalGastos.toFixed(2)}`;
-    document.getElementById("saldo-disponivel").innerText = `Saldo Disponível: R$ ${saldoDisponivel.toFixed(2)}`;
+    document.getElementById("total-gastos").innerText = `Total de Gastos: R$ ${totalGastos.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    document.getElementById("saldo-disponivel").innerText = `Saldo Disponível: R$ ${saldoDisponivel.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
     if (saldoDisponivel < 0) {
         document.getElementById("saldo-disponivel").style.color = "red";

@@ -7,14 +7,13 @@ header {
     background-color: #080bc9;
     padding: 20px;
     text-align: center;
-    color:#f7f7f7;
+    color: #f7f7f7;
 }
 
 main {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
-   
 }
 
 section {
@@ -22,6 +21,8 @@ section {
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
 }
 
 table {
@@ -40,42 +41,56 @@ th {
     color: #f7f7f7;
 }
 
-/* Responsividade para dispositivos móveis */
+/* Responsividade para telas menores */
 @media (max-width: 768px) {
-    main {
-    flex-direction: column;
-    align-items: center;
+    body {
+        margin: 10px;
     }
+
     section {
-    width: 85%;
-    margin-bottom: 50px;
-    }
-    #entrada-dados {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    }
-    #form-gastos {
-    margin-bottom: 10px;
-    text-align: center;
-
-    }
-    #adicionar-gasto, #definir-saldo {
-    width: 100%;
-    margin-bottom: 20px;
-    }
-    #resumo-gastos {
-    width: 100%;
-    text-align: center;
-    }
-    #tabela-gastos {
-        
-        margin-left: -15px;
-    
+        padding: 15px;
+        margin-bottom: 15px;
     }
 
-    #corpo-tabela {
-        font: 10px;
-
+    table {
+        display: block;
+        overflow-x: auto; /* Permite rolagem horizontal para tabelas grandes */
     }
-   }
+
+    th, td {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+/* Ajustes para telas muito pequenas (ex.: smartphones) */
+@media (max-width: 480px) {
+    header {
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    section {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    table {
+        font-size: 12px; /* Reduz o tamanho da fonte */
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Espaço entre os elementos do formulário */
+    }
+
+    input, button {
+        width: 100%; /* Ocupa toda a largura disponível */
+        font-size: 14px;
+    }
+}
