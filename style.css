@@ -41,6 +41,12 @@ th {
     color: #f7f7f7;
 }
 
+.pago {
+    background-color: #a7f0a7; /* Fundo verde claro para gastos pagos */
+    text-decoration: line-through; /* Linha sobre o texto para indicar que foi pago */
+}
+
+
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
     body {
